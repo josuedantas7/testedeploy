@@ -28,14 +28,15 @@ jobs:
     - name: Install Vercel CLI
       run: npm install -g vercel
 
-    - name: Deploy to Vercel Production
-      if: github.ref == 'refs/heads/main'
-      run: vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --confirm
-      env:
-        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-
-    - name: Deploy to Vercel Development
-      if: github.ref == 'refs/heads/dev'
-      run: vercel --token ${{ secrets.VERCEL_TOKEN }} --confirm
+    - name: Deploy to Vercel
+      run: |
+        if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_PROD_PROJECT_ID }} --confirm
+        elif [ "${GITHUB_REF}" = "refs/heads/dev" ]; then
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_DEV_PROJECT_ID }} --confirm
+        else
+          echo "No deployment for this branch."
+          exit 0
+        fi
       env:
         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
