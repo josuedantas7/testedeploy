@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      MAIN
+      TESTANDO ESSA É A MAIN
     </div>
   );
 }
