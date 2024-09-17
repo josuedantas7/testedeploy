@@ -31,9 +31,9 @@ jobs:
     - name: Deploy to Vercel
       run: |
         if [ "${GITHUB_REF}" = "refs/heads/main" ]; then
-          vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_PROD_PROJECT_ID }} --confirm
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_PROJECT_ID_PROD }} --confirm
         elif [ "${GITHUB_REF}" = "refs/heads/dev" ]; then
-          vercel --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_DEV_PROJECT_ID }} --confirm
+          vercel --token ${{ secrets.VERCEL_TOKEN }} --project ${{ secrets.VERCEL_PROJECT_ID_DEV }} --confirm
         else
           echo "No deployment for this branch."
           exit 0
